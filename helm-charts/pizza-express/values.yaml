@@ -1,0 +1,30 @@
+node:
+  replicas: 1
+
+  image:
+    repository: thedin87/pizza-express
+    tag: latest
+    pullPolicy: allways
+  
+  requests:
+    cpu: 200m
+    memory: 32Mi
+  
+  limits:
+    cpu: 250m
+    memory: 64Mi
+
+redis:
+  image:
+    repository: registry.k8s.io/redis
+    tag: e2e
+    pullPolicy: IfNotPresent
+
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  
+  limits:
+    cpu: 1
+    memory: 200Mi
+

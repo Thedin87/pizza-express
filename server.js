@@ -6,8 +6,10 @@ const bodyParser = require('body-parser');
 
 const generateId = require('./lib/generate-id');
 
+const redisUrl = process.env.REDIS_URL;
+
 var redis = require("redis"),
-  client = redis.createClient('6379');
+  client = redis.createClient({url: redisUrl});
 
 app.use(express.static('static'));
 app.use(bodyParser.urlencoded({ extended: true }));
