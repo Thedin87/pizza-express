@@ -14,6 +14,8 @@ jobs:
       redis:
         # Docker Hub image
         image: redis
+        ports:
+          - 6379:6379
         # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
@@ -37,16 +39,6 @@ jobs:
 
     - name: Install npm packages
       run: npm install
-
-    - name: wait for redis
-      run: docker exec $(docker ps | tail -1 | awk '{ print $1 }') redis-cli -h localhost -p 6379 ping | grep PONG
-        
-      # run: |
-      #   while [ -z "$PONG" ]; do
-      #     sleep 5
-      #     echo "Retry Redis ping... "
-      #     PONG=`redis-cli -h localhost -p 6379 ping | grep PONG`
-      #   done
 
     - name: Do the ci tests
       run: npm test
