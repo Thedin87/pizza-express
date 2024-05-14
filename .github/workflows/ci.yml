@@ -39,12 +39,14 @@ jobs:
       run: npm install
 
     - name: wait for redis
-      run: |
-        while [ -z "$PONG" ]; do
-          sleep 5
-          echo "Retry Redis ping... "
-          PONG=`redis-cli -h localhost -p 6379 ping | grep PONG`
-        done
+      run: docker ps
+        
+      # run: |
+      #   while [ -z "$PONG" ]; do
+      #     sleep 5
+      #     echo "Retry Redis ping... "
+      #     PONG=`redis-cli -h localhost -p 6379 ping | grep PONG`
+      #   done
 
     - name: Do the ci tests
       run: npm test
