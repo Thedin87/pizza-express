@@ -24,7 +24,7 @@ jobs:
 
     env:
       REDIS_URL: "redis://localhost:6379"
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+      BRANCH_NAME: ${{ github.ref_name }} 
     
     steps:
     - uses: actions/checkout@v4
