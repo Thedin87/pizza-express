@@ -71,9 +71,9 @@ jobs:
     - name: wait entill node container is healthy
       run: | 
         until docker ps | grep node-app | grep healthy
-        do;
-          sleep 5;
-        done;
+        do
+          sleep 5
+        done
         docker ps;
 
     - name: curl localhost:3000 
