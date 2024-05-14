@@ -70,7 +70,8 @@ jobs:
 
     - name: wait entill node container is healthy
       run: | 
-        until [ "`docker inspect -f {{.State.Health.Status}} node-app`"=="healthy" ]; do
+        until docker ps | grep node-app | grep healthy
+        do;
           sleep 5;
         done;
         docker ps;
