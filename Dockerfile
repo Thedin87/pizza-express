@@ -14,6 +14,8 @@ RUN npm install
 
 COPY --chown=node:node . .
 
+HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+
 EXPOSE 8081
 
 CMD [ "node", "server.js" ]
