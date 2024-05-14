@@ -45,7 +45,7 @@ jobs:
       run: npm test
 
     - name: create the image name correctly
-      run: IMAGE_NAME="thedin87/pizza-express:$BRANCH_NAME-${{ steps.commit.outputs.short }}"
+      run: IMAGE_NAME="thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}"
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -56,7 +56,7 @@ jobs:
       with:
         context: .
         load: true
-        tags: thedin87/pizza-express:$BRANCH_NAME-${{ steps.commit.outputs.short }}
+        tags: thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
         cache-from: type=registry,ref=thedin87/pizza-express:buildcache
         cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
 
@@ -67,7 +67,7 @@ jobs:
       run: curl --connect-timeout 100 http://localhost:3000
 
     - name: push image to registry
-      run: docker push thedin87/pizza-express:BRANCH_NAME-${{ steps.commit.outputs.short }}
+      run: docker push thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
     
 
 
