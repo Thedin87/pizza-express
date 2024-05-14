@@ -17,14 +17,15 @@ spec:
     spec:
       containers:
       - name: master
-        image: registry.k8s.io/redis:e2e
+        image: "{{ .Values.redis.image.repository}}:{{ .Values.redis.image.tag }}"
+        imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
         resources:
           limits:
-            memory: {{ ne .Values.redis.limits.memory "200Mi" }}
-            cpu: {{ ne .Values.redis.limits.cpu "1" }}
+            memory: {{ .Values.redis.limits.memory }}
+            cpu: {{ .Values.redis.limits.cpu }}
           requests:
-            memory: {{ ne .Values.redis.requests.memory "100Mi" }}
-            cpu: {{ ne .Values.redis.requests.cpu "100m" }}
+            memory: {{ .Values.redis.requests.memory }}
+            cpu: {{ .Values.redis.requests.cpu }}
         ports:
         - containerPort: 6379
 
@@ -43,5 +44,5 @@ spec:
   - port: 6379
     targetPort: 6379
   selector:
-    aapp: redis
+    app: redis
     release: {{ .Release.Name }}

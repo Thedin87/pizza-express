@@ -4,7 +4,7 @@ node:
   image:
     repository: thedin87/pizza-express
     tag: latest
-    pullPolicy: allways
+    pullPolicy: Always
   
   requests:
     cpu: 200m
@@ -14,10 +14,13 @@ node:
     cpu: 250m
     memory: 64Mi
 
+  ingress:
+    enabeld: true
+
 redis:
   image:
-    repository: registry.k8s.io/redis
-    tag: e2e
+    repository: redis
+    tag: latest
     pullPolicy: IfNotPresent
 
   requests:
