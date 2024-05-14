@@ -77,7 +77,7 @@ jobs:
         done;
 
     - name: curl localhost:3000 
-      run: curl --connect-timeout 100 http://localhost:3000
+      run: curl http://localhost:3000
 
     - name: push image to registry
       run: docker push thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
