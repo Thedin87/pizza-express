@@ -38,6 +38,14 @@ jobs:
     - name: Install npm packages
       run: npm install
 
+    - name: wait for redis
+      run: |
+        while [ -z "$PONG" ]; do
+          sleep 5
+          echo "Retry Redis ping... "
+          PONG=`redis-cli -h localhost -p 6379 ping | grep PONG`
+        done
+
     - name: Do the ci tests
       run: npm test
 
@@ -53,14 +61,6 @@ jobs:
         tags: thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
         cache-from: type=registry,ref=thedin87/pizza-express:buildcache
         cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
-
-    - name: wait for redis
-      run: |
-        while [ -z "$PONG" ]; do
-          sleep 5
-          echo "Retry Redis ping... "
-          PONG=`redis-cli -h localhost -p 6379 ping | grep PONG`
-        done
 
     - name: Run the image with env variable
       run:  docker run -dit -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
