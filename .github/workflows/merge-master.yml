@@ -21,7 +21,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: get version from package.json
-      run: export APP_VERSION=$(cat package.json | grep version | awk -F '"' '{ print $4 }')
+      run: echo "APP_VERSION=$(cat package.json | grep version | awk -F '"' '{ print $4 }')" >> $GITHUB_ENV
 
     - run: echo ${{ env.APP_VERSION }}
 
