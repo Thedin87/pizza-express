@@ -19,8 +19,7 @@ jobs:
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5services:
-
+          
     env:
       REDIS_URL: "redis://localhost:6379"
     
@@ -64,5 +63,5 @@ jobs:
     - name: push image to registry
       run: docker push thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
     
-      
+
 
