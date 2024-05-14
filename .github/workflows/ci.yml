@@ -58,14 +58,12 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and export to Docker
+    - name: Build
       uses: docker/build-push-action@v5
       with:
         context: .
         load: true
         tags: thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
-        cache-from: type=registry,ref=thedin87/pizza-express:buildcache
-        cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
 
     - name: Run the image with env variable
       run:  docker run -dit --name node-app -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
