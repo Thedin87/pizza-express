@@ -19,7 +19,7 @@ jobs:
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
-          
+
     env:
       REDIS_URL: "redis://localhost:6379"
     
@@ -55,7 +55,7 @@ jobs:
         cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
 
     - name: Run the image with env variable
-      run:  docker run -dit -e REDIS_URL="redis://localhost:6379" -p 3000:3000 thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
+      run:  docker run -dit -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
 
     - name: curl localhost:3000 
       run: curl --connect-timeout 100 http://localhost:3000
