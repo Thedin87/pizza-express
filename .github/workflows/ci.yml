@@ -75,6 +75,7 @@ jobs:
         until [ "`docker inspect -f {{.State.Health.Status}} node-app`"=="healthy" ]; do
           sleep 5;
         done;
+        docker ps;
 
     - name: curl localhost:3000 
       run: curl http://localhost:3000
