@@ -23,6 +23,8 @@ jobs:
     - name: get version from package.json
       run: export APP_VERSION=$(cat package.json | grep version | awk -F '"' '{ print $4 }')
 
+    - run: echo ${{ env.APP_VERSION }}
+
     - name: Build
       uses: docker/build-push-action@v5
       with:
