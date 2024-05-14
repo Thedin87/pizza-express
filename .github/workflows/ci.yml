@@ -68,11 +68,11 @@ jobs:
         cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
 
     - name: Run the image with env variable
-      run:  docker run -dit -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
+      run:  docker run -dit --name node-app -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
 
     - name: wait entill node container is healthy
       run: | 
-        until [ "`docker inspect -f {{.State.Health.Status}} CONTAINERNAME`"=="healthy" ]; do
+        until [ "`docker inspect -f {{.State.Health.Status}} node-app`"=="healthy" ]; do
           sleep 5;
         done;
 
