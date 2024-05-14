@@ -68,7 +68,7 @@ jobs:
         cache-to: type=registry,ref=thedin87/pizza-express:buildcache,mode=max
 
     - name: Run the image with env variable
-      run:  docker run -dit -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ github.ref }}-${{ steps.commit.outputs.short }}
+      run:  docker run -dit -e REDIS_URL="redis://host.docker.internal:6379" -p 3000:3000 --add-host host.docker.internal:host-gateway thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}
 
     - name: curl localhost:3000 
       run: curl --connect-timeout 100 http://localhost:3000
