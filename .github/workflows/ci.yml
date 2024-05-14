@@ -44,8 +44,8 @@ jobs:
     - name: Do the ci tests
       run: npm test
 
-    - name: create the image name correctly
-      run: IMAGE_NAME="thedin87/pizza-express:${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}"
+    - name: test branch name
+      run: echo "${{ env.BRANCH_NAME }}-${{ steps.commit.outputs.short }}"
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
