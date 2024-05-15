@@ -31,6 +31,10 @@ spec:
             cpu: {{ .Values.node.requests.cpu }}
         ports:
         - containerPort: 3000
+        {{ if .Values.node.logToFile.enabled }}
+        command: ['/home/node/app/start-node.sh']
+        {{ end }}
+
 
 ---
 

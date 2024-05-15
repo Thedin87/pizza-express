@@ -15,7 +15,10 @@ node:
     memory: 64Mi
 
   ingress:
-    enabeld: true
+    enabled: true
+
+  logToFile:
+    enabled: false
 
 redis:
   image:
