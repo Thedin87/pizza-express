@@ -6,6 +6,8 @@ RUN apk --no-cache add curl
 
 WORKDIR /home/node/app
 
+COPY start-node.sh ./
+
 COPY package*.json ./
 
 USER node
